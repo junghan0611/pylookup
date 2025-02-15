@@ -177,12 +177,12 @@ class IndexProcessor(HTMLParser):
                     # extract fist element
                     #  ex) __and__() (in module operator)
                     if self.level == 1:
-                        self.entry = re.sub("\([^)]+\)", "", self.desc)
+                        self.entry = self.entry = re.sub(r"\([^)]+\)", "", self.desc )
 
                         # clean up PEP
                         self.entry = trim(self.entry)
 
-                        match = re.search("\([^)]+\)", self.desc)
+                        match = re.search( r"\([^)]+\)", self.desc )
                         if match:
                             self.desc = match.group(0)
 
@@ -293,8 +293,8 @@ def cache(db, out=sys.stdout):
             while True:
                 e = pickle.load(f)
                 k = e.entry
-                k = re.sub("\([^)]*\)", "", k)
-                k = re.sub("\[[^]]*\]", "", k)
+                k = re.sub( r"\([^)]*\)", "", k )
+                k = re.sub( r"\[[^]]*\]", "", k )
                 keys.add(k)
         except EOFError:
             pass
